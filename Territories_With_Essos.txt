@@ -1,0 +1,111 @@
+The North:
+Winterfell
+Wolfswood
+Bear Island
+Stoney Shore
+Barrowlands
+Cape Kraken
+The Neck
+White Harbor
+Widow's Watch
+The Dreadfort
+Karhold
+The Gift
+Skagos
+
+The Iron Islands:
+Pyke
+Harlaw
+
+The Vale of Arryn:
+The Eyrie
+Gulltown
+Mountains of the Moon
+The Fingers
+
+The Riverlands:
+Riverrun
+Stoney Sept
+Harrenhal
+The Trident
+The Twins
+
+The Crownlands:
+King's Landing
+Cracklaw Point
+Dragonstone
+Kingswood
+
+The Stormlands:
+Storm's End
+Tarth
+Rainwood
+Dornish Marches
+
+Dorne:
+Sunspear
+Greenblood
+Sandstone
+Red Mountains
+
+The Reach:
+Highgarden
+The Mander
+Blackwater Rush
+Searoad Marshes
+Oldtown
+Three Towers
+The Arbor
+
+The Westerlands:
+Casterly Rock
+Crakehall
+Silverhill
+Golden Tooth
+The Crag
+
+Andalos:
+Braavosian Coastlands
+The Flatlands
+The Golden Fields
+Upper Rhoyne
+Hills of Norvos
+The Axe
+Forest of Qohor
+
+The Disputed Lands:
+Myr
+Tyrosh
+Lys
+The Orange Stone
+Volantis
+Lower Rhoyne
+
+Lands of the Long Summer:
+Valyria
+Oros
+The Sea of Sighs
+Mantarys
+
+The Dothraki Sea:
+Sarnor
+Western Dothraki Sea
+Northern Dothraki Sea
+Eastern Dothraki Sea
+Vaes Dothrak
+The Footprint
+Lhazar
+
+Slaver's Bay:
+Meereen
+Yunkai
+Astapor
+Old Ghis
+New Ghis
+The Red Waste
+
+Jade Sea Coast:
+Qarth
+Bayasabhad
+Samyriar
+Northern Jade Sea
