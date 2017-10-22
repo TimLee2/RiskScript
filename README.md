@@ -18,6 +18,9 @@ The layout of the web page is fairly simple, with instructions guiding the playe
 - Choose to include or not include Essos in the randomization
 - Ability to Reset quickly to modify input errors
 
+# Fisher-Yates Shuffle Algorithm
+Randomization is a subtle and tough subject. I tried to find a way to randomize the territories so that it is "truly randomized": No player will have territories that are clustered on the map. I stumbled upon the [Fisher-Yates Shuffle Algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) and the results have been promising with some testing done. Although it is not perfect, it does help to perform the shuffling in O(n) time.
+
 # MORE TO COME
 - Add die-rolling feature
 - Modify some of the resets so the whole page doesn't have to reload
