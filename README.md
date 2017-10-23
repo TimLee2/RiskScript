@@ -19,7 +19,7 @@ The layout of the web page is fairly simple, with instructions guiding the playe
 - Ability to Reset quickly to modify input errors
 
 # Fisher-Yates Shuffle Algorithm
-Randomization is a subtle and tough subject. I tried to find a way to randomize the territories so that it is "truly randomized": No player will have territories that are clustered on the map. I stumbled upon the [Fisher-Yates Shuffle Algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) and the results have been promising with some testing done. Although it is not perfect, it does help to perform the shuffling in O(n) time.
+Randomization is a subtle and tough subject. I tried to find a way to randomize the territories so that it is "truly randomized": Each player will have territories that are minimally clustered on the map. In other words, a player beginning with a whole continent when other players don't will leave them at a disadvantage. I stumbled upon the [Fisher-Yates Shuffle Algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) and the results have been promising with some testing done. Although it is not perfect, it does help to perform the shuffling in O(n) time.
 
 # MORE TO COME
 - Add die-rolling feature
