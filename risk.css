@@ -1,5 +1,5 @@
-/* Change title color */
-title{
+/* Change heading colour to red */
+#title{
     color: red;
 }
 
