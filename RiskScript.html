@@ -278,15 +278,20 @@ Author: Tim Lee
     
     //Used to display the output of all Players and their territories.
     function outputData(outArray){
+        var y = 0;
         for(var x=0; x<outArray.length; x++){
             document.getElementById("genOutput").innerHTML += 
                     activePlayers[x] + ": <br>";
-            for(var y=0; y<outArray[x].length; y++){  
-                document.getElementById("genOutput").innerHTML += 
-                        outArray[x][y] + ", ";
+            while(y<outArray[x].length){  
+                if(outArray[x][y] != null){
+                    document.getElementById("genOutput").innerHTML += 
+                            outArray[x][y] + ", ";
+                }
+                y++;
             }
             console.log(outArray[x]);
             document.getElementById("genOutput").innerHTML += "<br><br>";
+            y = 0;
         }
         document.getElementById("genOutput").innerHTML += 
                 "---------------------------------------------------------" + 
