@@ -30,5 +30,5 @@ Randomization is a subtle and tough subject. I tried to find a way to randomize 
 # Known Issues (or Improvements)
 - Dynamically display the Players boxes instead of all 7 at once
 - Modify some of the resets so the whole page doesn't have to reload 
-
+- Notify the players that get a card at start of game due to uneven territory distribution based on # of Players
 
