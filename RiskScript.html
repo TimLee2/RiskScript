@@ -56,10 +56,9 @@ Author: Tim Lee
             
             
             <br>
-            <br>
+            <h2 id="EssosDisplay"></h2>
             <input id="withEssos" type="button" value="With Essos" disabled>
             <input id="noEssos" type="button" value="Without Essos" disabled>
-            <h2 id="EssosDisplay"></h2>
             
             
             <h3 id="displayGeneratePrompt"></h3>
@@ -155,6 +154,9 @@ Author: Tim Lee
                 }
                 counter++;
             }
+            
+            document.getElementById("EssosDisplay").innerHTML
+                    = "Select 'With Essos' or 'No Essos' ";
             document.getElementById("noEssos").disabled = false;
             document.getElementById("withEssos").disabled = false;
         });
