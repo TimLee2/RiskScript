@@ -25,7 +25,7 @@ Randomization is a subtle and tough subject. I tried to find a way to randomize 
 - Add die-rolling feature
 - Maybe make it look more pretty
 - Map (or visual) to help locate territories on board
-- An Essos only feature for 2 players
+- An Essos only feature
 
 # Known Issues (or Improvements)
 - Dynamically display the Players boxes instead of all 7 at once

@@ -59,6 +59,7 @@ Author: Tim Lee
             <h2 id="EssosDisplay"></h2>
             <input id="withEssos" type="button" value="With Essos" disabled>
             <input id="noEssos" type="button" value="Without Essos" disabled>
+            <input id="onlyEssos" type="button" value="Only Essos" disabled>
             
             
             <h3 id="displayGeneratePrompt"></h3>
@@ -92,9 +93,9 @@ Author: Tim Lee
             document.getElementById("GenerationError1").innerHTML 
                     = "YOU CAN'T PLAY BY YOURSELF!";
         }
-        else if(numPlaying == 0){
+        else if(numPlaying <= 0){
             document.getElementById("GenerationError1").innerHTML 
-                    = "ENTER NUMBER OF PLAYERS.";
+                    = "ENTER VALID NUMBER OF PLAYERS.";
         }
         else if(numPlaying > 7){
             document.getElementById("GenerationError1").innerHTML 
@@ -103,8 +104,6 @@ Author: Tim Lee
         else{
             document.getElementById("GenerationError1").innerHTML 
                     = numPlaying + " PLAYERS ENTERED.";
-            //document.getElementById("in1").disabled = false;
-            //document.getElementById("in2").disabled = false;
             document.getElementById("promptToEnterNames").innerHTML
                     = "Now enter each player:";
             document.getElementById("warning1").innerHTML
@@ -156,7 +155,7 @@ Author: Tim Lee
             }
             
             document.getElementById("EssosDisplay").innerHTML
-                    = "Select 'With Essos' or 'No Essos' ";
+                    = "Select from 3 map types: ";
             document.getElementById("noEssos").disabled = false;
             document.getElementById("withEssos").disabled = false;
         });
@@ -211,6 +210,14 @@ Author: Tim Lee
             "Eastern Dothraki Sea", "The Footprint", "Lhazar", "Vaes Dothrak",
             "Meereen", "Yunkai", "Astapor", "Old Ghis", "New Ghis", "The Red Waste",
             "Qarth", "Bayasabhad", "Samyriar", "Northern Jade Sea"];
+            
+    var onlyEssosArr = ["Braavosian Coastlands", "The Flatlands", "The Golden Fields", 
+            "Upper Rhoyne", "Hills of Norvos", "The Axe", "Forest of Qohor", "Myr", 
+            "Tyrosh", "Lys", "The Orange Stone", "Volantis", "Lower Rhoyne", "Valyria", 
+            "Oros", "The Sea of Sighs", "Mantarys", "Sarnor", "Western Dothraki Sea", 
+            "Northern Dothraki Sea","Eastern Dothraki Sea", "The Footprint", "Lhazar", 
+            "Vaes Dothrak","Meereen", "Yunkai", "Astapor", "Old Ghis", "New Ghis", 
+            "The Red Waste","Qarth", "Bayasabhad", "Samyriar", "Northern Jade Sea"];
 
     //Algorithms used for randomizing the territories.
     function generateTerritories(){
