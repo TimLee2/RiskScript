@@ -2,7 +2,7 @@
 Generates random territories for Risk (Game of Thrones).
 
 ## Description
-Based on the popular board game Risk, a spin-off Game of Thrones version was created which is what this script is used for. Instead of having to manually draw cards to decide the starting territories for each player, players can use this script to quickly randomize all the territories so the game can begin sooner. The script generates an equal amount of random territories based on the amount of players inputted. Two options are available if the players decide to play with Essos or without Essos. 
+Based on the popular board game Risk, a spin-off Game of Thrones version was created which is what this script is used for. Instead of having to manually draw cards to decide the starting territories for each player, players can use this script to quickly randomize all the territories so the game can begin sooner. The script generates an equal amount of random territories based on the amount of players inputted. Two options are available if the players decide to play with or without Essos.
 
 # Getting Started
 ## Prerequisites
