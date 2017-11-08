@@ -83,7 +83,7 @@ Author: Tim Lee
     var numPlaying;             //Number of players playing
     var strPlayers = [];
     var activePlayers = [];     //Keeps track of all players playing
-    var essosDecide = true;     //Flag for deciding which array to use
+    var essosDecide = 0;     //Flag for deciding which array to use
     
     function numPlayers(){
     
@@ -156,8 +156,10 @@ Author: Tim Lee
             
             document.getElementById("EssosDisplay").innerHTML
                     = "Select from 3 map types: ";
+            //Enables the map type buttons
             document.getElementById("noEssos").disabled = false;
             document.getElementById("withEssos").disabled = false;
+            document.getElementById("onlyEssos").disabled = false;
         });
         
         
@@ -167,7 +169,7 @@ Author: Tim Lee
                     = "Selected: WITH ESSOS";
             document.getElementById("displayGeneratePrompt").innerHTML
                     = "Click \"Generate Territories!\"";
-            essosDecide = false;
+            essosDecide = 1;
         });
         
         
@@ -177,6 +179,16 @@ Author: Tim Lee
                     = "Selected: WITHOUT ESSOS";
             document.getElementById("displayGeneratePrompt").innerHTML
                     = "Click \"Generate Territories!\"";
+            essosDecide = 0;
+        });
+        
+        $("#onlyEssos").click(function(){
+            document.getElementById("allowGeneration").disabled = false;
+            document.getElementById("EssosDisplay").innerHTML
+                    = "Selected: ONLY ESSOS";
+            document.getElementById("displayGeneratePrompt").innerHTML
+                    = "Click \"Generate Territories!\"";
+            essosDecide = 2;
         });
         
     });
@@ -191,7 +203,6 @@ Author: Tim Lee
             "Red Mountains", "Highgarden", "The Mander", "Blackwater Rush", 
             "Searoad Marshes", "Oldtown", "Three Towers", "The Arbor", "Casterly Rock",
             "Crakehall", "Silverhill", "Golden Tooth", "The Crag"];
-
     
     var withEssosArr = ["Winterfell", "Wolfswood", "Bear Island", "Stoney Shore",
             "Barrowlands", "Cape Kraken", "The Neck", "White Harbor", "Widow's Watch",
@@ -224,9 +235,10 @@ Author: Tim Lee
     
         var genArray1 = [];
         var genArray2 = [];
+        var genArray3 = [];
         
         //NO ESSOS
-        if(essosDecide == true){
+        if(essosDecide == 0){
             // Fisher-Yates Shuffle Algorithm 
             var m1 = noEssosArr.length;
             var temp1, i;
@@ -255,7 +267,7 @@ Author: Tim Lee
             outputData(genArray1);
         }
         //WITH ESSOS
-        else if(essosDecide == false){
+        else if(essosDecide == 1){
             // Fisher-Yates Shuffle Algorithm 
             var m2 = withEssosArr.length;
             var temp2, j;
@@ -282,6 +294,35 @@ Author: Tim Lee
             }
             
             outputData(genArray2);
+        }
+        //ONLY ESSOS
+        else if(essosDecide == 2){
+            // Fisher-Yates Shuffle Algorithm 
+            var m3 = onlyEssosArr.length;
+            var temp3, k;
+            while(m3){
+                k = Math.floor(Math.random() * m3--);
+                temp3 = onlyEssosArr[m3];
+                onlyEssosArr[m3] = onlyEssosArr[k];
+                onlyEssosArr[k] = temp3;
+            }
+            
+            console.log(onlyEssosArr);
+            
+            //Divides randomized array into groups for each player.
+            var chunkLen = onlyEssosArr.length/numPlaying; 
+            var counter = 0;
+            for(var x=0; x<activePlayers.length; x++){
+                genArray3[x] = [];             
+            }
+            for(var y=0; y<chunkLen; y++){
+                for(var x=0; x<activePlayers.length; x++){
+                    genArray3[x][y] = onlyEssosArr[counter];
+                    counter++;
+                }
+            }
+            
+            outputData(genArray3);
         }
     }
     

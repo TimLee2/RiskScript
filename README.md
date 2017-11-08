@@ -15,7 +15,10 @@ The layout of the web page is fairly simple, with instructions guiding the playe
 # Features
 - Allows for range of 2-7 Players
 - Custom names for each Player (optional)
-- Choose to include or not include Essos in the randomization
+- 3 Map types: 
+    - Westeros Only
+    - Westeros + Essos
+    - Essos Only
 - Ability to Reset quickly to modify input errors
 
 # Fisher-Yates Shuffle Algorithm
@@ -25,7 +28,6 @@ Randomization is a subtle and tough subject. I tried to find a way to randomize 
 - Add die-rolling feature
 - Maybe make it look more pretty
 - Map (or visual) to help locate territories on board
-- An Essos only feature
 
 # Known Issues (or Improvements)
 - Dynamically display the Players boxes instead of all 7 at once
