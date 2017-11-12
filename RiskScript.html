@@ -117,29 +117,26 @@ Author: Tim Lee
     // jQuery for event handling
     $(document).ready(function(){
     
-        // Enables user to enter in names
+        // Dynamically displays the Player Names input boxes
         $("#numP").click(function(){
             if(numPlaying > 1 && numPlaying < 8){
-                $("#name1").show();
-                $("#name2").show();
-                $("#name3").show();
-                $("#name4").show();
-                $("#name5").show();
-                $("#name6").show();
-                $("#name7").show();
+                var iterNames = 1;
+                while(iterNames <= numPlaying){
+                    $("#name"+iterNames).show();
+                    iterNames++;
+                }
+                
                 $("#enteredPlayers").show();
             }
         });
         
         // Stores the names into 'activePlayers' array
         $("#enteredPlayers").click(function(){
-            strPlayers.push($("#in1").val());
-            strPlayers.push($("#in2").val());
-            strPlayers.push($("#in3").val());
-            strPlayers.push($("#in4").val());
-            strPlayers.push($("#in5").val());
-            strPlayers.push($("#in6").val());
-            strPlayers.push($("#in7").val());
+            var iterInputNames = 1;
+            while(iterInputNames <= numPlaying){
+                strPlayers.push($("#in"+iterInputNames).val());
+                iterInputNames++;
+            }
             
             /*$.each(strPlayers, function(index, value){
                 alert(strPlayers[index]);
