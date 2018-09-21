@@ -1,6 +1,7 @@
 <!--
 RiskScript
 Author: Tim Lee
+Last modified: 9/20/2018
 -->
 
 <!DOCTYPE html>
@@ -12,7 +13,7 @@ Author: Tim Lee
 </head>
 
 <body>
-    <h1 id="title">Risk Generator</h1>
+    <h1 id="title">Risk (Game of Thrones) Territories Generator</h1>
     
     <!-- Divides page into two sections. -->
     <div style="width:100%;">
@@ -56,10 +57,10 @@ Author: Tim Lee
             
             
             <br>
-            <br>
-            <input id="withEssos" type="button" value="With Essos" disabled>
-            <input id="noEssos" type="button" value="Without Essos" disabled>
             <h2 id="EssosDisplay"></h2>
+            <input id="noEssos" type="button" value="Westeros Only" disabled>
+            <input id="withEssos" type="button" value="Westeros + Essos" disabled>
+            <input id="onlyEssos" type="button" value="Essos Only" disabled>
             
             
             <h3 id="displayGeneratePrompt"></h3>
@@ -83,19 +84,19 @@ Author: Tim Lee
     var numPlaying;             //Number of players playing
     var strPlayers = [];
     var activePlayers = [];     //Keeps track of all players playing
-    var essosDecide = true;     //Flag for deciding which array to use
+    var essosDecide = 0;     //Flag for deciding which array to use
     
     function numPlayers(){
-    
+        
         // numPlaying stores the number of players entered.
         numPlaying = document.getElementById("numberPlayers").value;
         if(numPlaying == 1){
             document.getElementById("GenerationError1").innerHTML 
                     = "YOU CAN'T PLAY BY YOURSELF!";
         }
-        else if(numPlaying == 0){
+        else if(numPlaying <= 0){
             document.getElementById("GenerationError1").innerHTML 
-                    = "ENTER NUMBER OF PLAYERS.";
+                    = "ENTER VALID NUMBER OF PLAYERS.";
         }
         else if(numPlaying > 7){
             document.getElementById("GenerationError1").innerHTML 
@@ -107,12 +108,11 @@ Author: Tim Lee
             //document.getElementById("in1").disabled = false;
             //document.getElementById("in2").disabled = false;
             document.getElementById("promptToEnterNames").innerHTML
-                    = "Now enter each player:";
-            document.getElementById("warning1").innerHTML
-                    = "(Don't worry if remaining slots are left blank.)";
-             document.getElementById("warning2").innerHTML
-                    = "(If required player is left blank, will be " +  
-                      "given default name.)";
+                    = "Enter name each player:";
+            //document.getElementById("warning1").innerHTML
+                    //= "(Don't worry if remaining slots are left blank.)";
+            document.getElementById("warning2").innerHTML
+                    = "(Empty fields will be given default name.)";
         }  
     }
     
@@ -122,26 +122,22 @@ Author: Tim Lee
         // Enables user to enter in names
         $("#numP").click(function(){
             if(numPlaying > 1 && numPlaying < 8){
-                $("#name1").show();
-                $("#name2").show();
-                $("#name3").show();
-                $("#name4").show();
-                $("#name5").show();
-                $("#name6").show();
-                $("#name7").show();
+                var iterNames = 1;
+                while(iterNames <= numPlaying){
+                    $("#name" + iterNames).show();
+                    iterNames++;
+                }
                 $("#enteredPlayers").show();
             }
         });
         
         // Stores the names into 'activePlayers' array
         $("#enteredPlayers").click(function(){
-            strPlayers.push($("#in1").val());
-            strPlayers.push($("#in2").val());
-            strPlayers.push($("#in3").val());
-            strPlayers.push($("#in4").val());
-            strPlayers.push($("#in5").val());
-            strPlayers.push($("#in6").val());
-            strPlayers.push($("#in7").val());
+            var iterInputNames = 1;
+            while(iterInputNames <= numPlaying){
+                strPlayers.push($("#in" + iterInputNames).val());
+                iterInputNames++;
+            }
             
             /*$.each(strPlayers, function(index, value){
                 alert(strPlayers[index]);
@@ -155,27 +151,40 @@ Author: Tim Lee
                 }
                 counter++;
             }
+            document.getElementById("EssosDisplay").innerHTML = 
+                        "Select from 3 map types: ";
             document.getElementById("noEssos").disabled = false;
             document.getElementById("withEssos").disabled = false;
+            document.getElementById("onlyEssos").disabled = false;
         });
         
         
         $("#withEssos").click(function(){
             document.getElementById("allowGeneration").disabled = false;
             document.getElementById("EssosDisplay").innerHTML
-                    = "Selected: WITH ESSOS";
+                    = "Selected: WESTEROS + ESSOS";
             document.getElementById("displayGeneratePrompt").innerHTML
                     = "Click \"Generate Territories!\"";
-            essosDecide = false;
+            essosDecide = 1;
         });
         
         
         $("#noEssos").click(function(){
             document.getElementById("allowGeneration").disabled = false;
             document.getElementById("EssosDisplay").innerHTML
-                    = "Selected: WITHOUT ESSOS";
+                    = "Selected: WESTEROS ONLY";
             document.getElementById("displayGeneratePrompt").innerHTML
                     = "Click \"Generate Territories!\"";
+            essosDecide = 0;
+        });
+        
+        $("#onlyEssos").click(function(){
+            document.getElementById("allowGeneration").disabled = false;
+            document.getElementById("EssosDisplay").innerHTML
+                    = "Selected: ESSOS ONLY";
+            document.getElementById("displayGeneratePrompt").innerHTML
+                    = "Click \"Generate Territories!\"";
+            essosDecide = 2;
         });
         
     });
@@ -209,19 +218,28 @@ Author: Tim Lee
             "Eastern Dothraki Sea", "The Footprint", "Lhazar", "Vaes Dothrak",
             "Meereen", "Yunkai", "Astapor", "Old Ghis", "New Ghis", "The Red Waste",
             "Qarth", "Bayasabhad", "Samyriar", "Northern Jade Sea"];
+            
+    var onlyEssosArr = ["Braavosian Coastlands", "The Flatlands", "The Golden Fields", 
+            "Upper Rhoyne", "Hills of Norvos", "The Axe", "Forest of Qohor", "Myr", 
+            "Tyrosh", "Lys", "The Orange Stone", "Volantis", "Lower Rhoyne", "Valyria", 
+            "Oros", "The Sea of Sighs", "Mantarys", "Sarnor", "Western Dothraki Sea", 
+            "Northern Dothraki Sea","Eastern Dothraki Sea", "The Footprint", "Lhazar", 
+            "Vaes Dothrak","Meereen", "Yunkai", "Astapor", "Old Ghis", "New Ghis", 
+            "The Red Waste","Qarth", "Bayasabhad", "Samyriar", "Northern Jade Sea"];
 
     //Algorithms used for randomizing the territories.
     function generateTerritories(){
     
         var genArray1 = [];
         var genArray2 = [];
+        var genArray3 = [];
         
         //NO ESSOS
-        if(essosDecide == true){
+        if(essosDecide == 0){
             // Fisher-Yates Shuffle Algorithm 
             var m1 = noEssosArr.length;
             var temp1, i;
-            while(m1){
+            while(m1) {
                 i = Math.floor(Math.random() * m1--);
                 temp1 = noEssosArr[m1];
                 noEssosArr[m1] = noEssosArr[i];
@@ -246,7 +264,7 @@ Author: Tim Lee
             outputData(genArray1);
         }
         //WITH ESSOS
-        else if(essosDecide == false){
+        else if(essosDecide == 1){
             // Fisher-Yates Shuffle Algorithm 
             var m2 = withEssosArr.length;
             var temp2, j;
@@ -274,6 +292,36 @@ Author: Tim Lee
             
             outputData(genArray2);
         }
+        //ONLY ESSOS
+        else if(essosDecide == 2){
+            // Fisher-Yates Shuffle Algorithm 
+            var m3 = onlyEssosArr.length;
+            var temp3, k;
+            while(m3){
+                k = Math.floor(Math.random() * m3--);
+                temp3 = onlyEssosArr[m3];
+                onlyEssosArr[m3] = onlyEssosArr[k];
+                onlyEssosArr[k] = temp3;
+            }
+            
+            console.log(onlyEssosArr);
+            
+            //Divides randomized array into groups for each player.
+            var chunkLen = onlyEssosArr.length/numPlaying; 
+            var counter = 0;
+            for(var x=0; x<activePlayers.length; x++){
+                genArray3[x] = [];             
+            }
+            for(var y=0; y<chunkLen; y++){
+                for(var x=0; x<activePlayers.length; x++){
+                    genArray3[x][y] = onlyEssosArr[counter];
+                    counter++;
+                }
+            }
+            
+            outputData(genArray3);
+        }
+        
     }
     
     //Used to display the output of all Players and their territories.
