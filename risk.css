@@ -1,0 +1,15 @@
+/* Change heading colour to red */
+#title{
+    color: red;
+}
+
+/* Word-wrapping */
+div, textarea, table, td, th, code, pre, samp{
+    word-wrap: break-word;
+}
+
+/* Fixes extra white space between lines. */
+h1,h4{
+    padding: 0px;
+    margin: 0px;
+}

@@ -1,0 +1,314 @@
+<!--
+RiskScript
+Author: Tim Lee
+
+NEED TO FIX:
+- 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="risk.css">
+    <title>Risk Generator</title>
+</head>
+
+<body>
+    <h1 id="title">Risk Generator</h1>
+    
+    <!-- Divides page into two sections. -->
+    <div style="width:100%;">
+        
+        <!-- User instructions on left side of page -->
+        <div style="float:left; width:40%;">
+            <h3>First enter the number of players:</h3>
+
+            <input type="number" id="numberPlayers">
+            <button id="numP" onclick="numPlayers()">Enter Number of Players!</button>
+            <h2 id="GenerationError1"></h2>
+            <h2 id="promptToEnterNames"></h2>
+            <h4 id="warning1"></h4>
+            <h4 id="warning2"></h4>
+            <!--<h3 id="PromptToGenerate"></h3>-->
+            
+            
+            <!-- 7 Text Fields for entering Player names -->
+            <div id="name1" hidden>Player1:
+                <input id="in1" type="text" value="" />
+            </div>
+            <div id="name2" hidden>Player2:
+                <input id="in2" type="text" value="" />
+            </div>
+            <div id="name3" hidden>Player3:
+                <input id="in3" type="text" value="" />
+            </div>
+            <div id="name4" hidden>Player4:
+                <input id="in4" type="text" value="" />
+            </div>
+            <div id="name5" hidden>Player5:
+                <input id="in5" type="text" value="" />
+            </div>
+            <div id="name6" hidden>Player6:
+                <input id="in6" type="text" value="" />
+            </div>
+            <div id="name7" hidden>Player7:
+                <input id="in7" type="text" value="" />
+            </div>
+            <input id="enteredPlayers" type="button" value="Enter" hidden/>
+            
+            
+            <br>
+            <br>
+            <input id="withEssos" type="button" value="With Essos" disabled>
+            <input id="noEssos" type="button" value="Without Essos" disabled>
+            <h2 id="EssosDisplay"></h2>
+            
+            
+            <h3 id="displayGeneratePrompt"></h3>
+            <button id="allowGeneration" onclick="generateTerritories()" disabled>
+                    Generate Territories!</button>
+                 
+        </div>
+        
+        <!-- Territory output on right side of page -->
+        <div style="float:right; width:55%;">
+            <button id="reloadP" onclick="reloadPage()">Reset</button>
+            <h2 id="playerNames"></h2>
+            <h3 id="genOutput"></h3>
+        </div>
+        
+    </div>
+    
+
+<script type="text/javascript">
+
+    var numPlaying;             //Number of players playing
+    var strPlayers = [];
+    var activePlayers = [];     //Keeps track of all players playing
+    var essosDecide = true;     //Flag for deciding which array to use
+    
+    function numPlayers(){
+    
+        // numPlaying stores the number of players entered.
+        numPlaying = document.getElementById("numberPlayers").value;
+        if(numPlaying == 1){
+            document.getElementById("GenerationError1").innerHTML 
+                    = "YOU CAN'T PLAY BY YOURSELF!";
+        }
+        else if(numPlaying == 0){
+            document.getElementById("GenerationError1").innerHTML 
+                    = "ENTER NUMBER OF PLAYERS.";
+        }
+        else if(numPlaying > 7){
+            document.getElementById("GenerationError1").innerHTML 
+                    = "CAN'T HAVE MORE THAN 7 PLAYERS!";
+        }
+        else{
+            document.getElementById("GenerationError1").innerHTML 
+                    = numPlaying + " PLAYERS ENTERED.";
+            //document.getElementById("in1").disabled = false;
+            //document.getElementById("in2").disabled = false;
+            document.getElementById("promptToEnterNames").innerHTML
+                    = "Now enter each player:";
+            document.getElementById("warning1").innerHTML
+                    = "(Don't worry if remaining slots are left blank.)";
+             document.getElementById("warning2").innerHTML
+                    = "(If required player is left blank, will be " +  
+                      "given default name.)";
+        }  
+    }
+    
+    // jQuery for event handling
+    $(document).ready(function(){
+    
+        // Enables user to enter in names
+        $("#numP").click(function(){
+            if(numPlaying > 1 && numPlaying < 8){
+                $("#name1").show();
+                $("#name2").show();
+                $("#name3").show();
+                $("#name4").show();
+                $("#name5").show();
+                $("#name6").show();
+                $("#name7").show();
+                $("#enteredPlayers").show();
+            }
+        });
+        
+        // Stores the names into 'activePlayers' array
+        $("#enteredPlayers").click(function(){
+            strPlayers.push($("#in1").val());
+            strPlayers.push($("#in2").val());
+            strPlayers.push($("#in3").val());
+            strPlayers.push($("#in4").val());
+            strPlayers.push($("#in5").val());
+            strPlayers.push($("#in6").val());
+            strPlayers.push($("#in7").val());
+            
+            /*$.each(strPlayers, function(index, value){
+                alert(strPlayers[index]);
+            });*/
+            
+            var counter = 0;
+            while(counter < numPlaying){
+                activePlayers[counter] = strPlayers[counter];
+                if(activePlayers[counter]==''){
+                    activePlayers[counter] = "Player"+(counter+1);
+                }
+                counter++;
+            }
+            document.getElementById("noEssos").disabled = false;
+            document.getElementById("withEssos").disabled = false;
+        });
+        
+        
+        $("#withEssos").click(function(){
+            document.getElementById("allowGeneration").disabled = false;
+            document.getElementById("EssosDisplay").innerHTML
+                    = "Selected: WITH ESSOS";
+            document.getElementById("displayGeneratePrompt").innerHTML
+                    = "Click \"Generate Territories!\"";
+            essosDecide = false;
+        });
+        
+        
+        $("#noEssos").click(function(){
+            document.getElementById("allowGeneration").disabled = false;
+            document.getElementById("EssosDisplay").innerHTML
+                    = "Selected: WITHOUT ESSOS";
+            document.getElementById("displayGeneratePrompt").innerHTML
+                    = "Click \"Generate Territories!\"";
+        });
+        
+    });
+    
+    var noEssosArr = ["Winterfell", "Wolfswood", "Bear Island", "Stoney Shore",
+            "Barrowlands", "Cape Kraken", "The Neck", "White Harbor", "Widow's Watch",
+            "The Dreadfort", "Karhold", "The Gift", "Skagos", "Pyke", "Harlaw", 
+            "The Eyrie", "Gulltown", "Mountains of the Moon", "The Fingers", "Riverrun",
+            "Stoney Sept", "Harrenhal", "The Trident", "The Twins", "King's Landing",
+            "Cracklaw Point", "Dragonstone", "Kingswood", "Storm's End", "Tarth",
+            "Rainwood", "Dornish Marches", "Sunspear", "Greenblood", "Sandstone", 
+            "Red Mountains", "Highgarden", "The Mander", "Blackwater Rush", 
+            "Searoad Marshes", "Oldtown", "Three Towers", "The Arbor", "Casterly Rock",
+            "Crakehall", "Silverhill", "Golden Tooth", "The Crag"];
+
+    
+    var withEssosArr = ["Winterfell", "Wolfswood", "Bear Island", "Stoney Shore",
+            "Barrowlands", "Cape Kraken", "The Neck", "White Harbor", "Widow's Watch",
+            "The Dreadfort", "Karhold", "The Gift", "Skagos", "Pyke", "Harlaw", 
+            "The Eyrie", "Gulltown", "Mountains of the Moon", "The Fingers", "Riverrun",
+            "Stoney Sept", "Harrenhal", "The Trident", "The Twins", "King's Landing",
+            "Cracklaw Point", "Dragonstone", "Kingswood", "Storm's End", "Tarth",
+            "Rainwood", "Dornish Marches", "Sunspear", "Greenblood", "Sandstone", 
+            "Red Mountains", "Highgarden", "The Mander", "Blackwater Rush", 
+            "Searoad Marshes", "Oldtown", "Three Towers", "The Arbor", "Casterly Rock",
+            "Crakehall", "Silverhill", "Golden Tooth", "The Crag", "Braavosian Coastlands", 
+            "The Flatlands", "The Golden Fields", "Upper Rhoyne", "Hills of Norvos", 
+            "The Axe", "Forest of Qohor", "Myr", "Tyrosh", "Lys", "The Orange Stone", 
+            "Volantis", "Lower Rhoyne", "Valyria", "Oros", "The Sea of Sighs",
+            "Mantarys", "Sarnor", "Western Dothraki Sea", "Northern Dothraki Sea",
+            "Eastern Dothraki Sea", "The Footprint", "Lhazar", "Vaes Dothrak",
+            "Meereen", "Yunkai", "Astapor", "Old Ghis", "New Ghis", "The Red Waste",
+            "Qarth", "Bayasabhad", "Samyriar", "Northern Jade Sea"];
+
+    //Algorithms used for randomizing the territories.
+    function generateTerritories(){
+    
+        var genArray1 = [];
+        var genArray2 = [];
+        
+        //NO ESSOS
+        if(essosDecide == true){
+            // Fisher-Yates Shuffle Algorithm 
+            var m1 = noEssosArr.length;
+            var temp1, i;
+            while(m1){
+                i = Math.floor(Math.random() * m1--);
+                temp1 = noEssosArr[m1];
+                noEssosArr[m1] = noEssosArr[i];
+                noEssosArr[i] = temp1;
+            }
+            
+            //console.log(noEssosArr);
+            
+            //Divides randomized array into groups for each player.
+            var chunkLen = noEssosArr.length/numPlaying; 
+            var counter = 0;
+            for(var x=0; x<activePlayers.length; x++){
+                genArray1[x] = [];              
+            }
+            for(var y=0; y<chunkLen; y++){
+                for(var x=0; x<activePlayers.length; x++){
+                    genArray1[x][y] = noEssosArr[counter];
+                    counter++;
+                }
+            }
+            
+            outputData(genArray1);
+        }
+        //WITH ESSOS
+        else if(essosDecide == false){
+            // Fisher-Yates Shuffle Algorithm 
+            var m2 = withEssosArr.length;
+            var temp2, j;
+            while(m2){
+                j = Math.floor(Math.random() * m2--);
+                temp2 = withEssosArr[m2];
+                withEssosArr[m2] = withEssosArr[j];
+                withEssosArr[j] = temp2;
+            }
+            
+            //console.log(withEssosArr);
+            
+            //Divides randomized array into groups for each player.
+            var chunkLen = withEssosArr.length/numPlaying; 
+            var counter = 0;
+            for(var x=0; x<activePlayers.length; x++){
+                genArray2[x] = [];             
+            }
+            for(var y=0; y<chunkLen; y++){
+                for(var x=0; x<activePlayers.length; x++){
+                    genArray2[x][y] = withEssosArr[counter];
+                    counter++;
+                }
+            }
+            
+            outputData(genArray2);
+        }
+    }
+    
+    //Used to display the output of all Players and their territories.
+    function outputData(outArray){
+        var y = 0;
+        for(var x=0; x<outArray.length; x++){
+            document.getElementById("genOutput").innerHTML += 
+                    activePlayers[x] + ": <br>";
+            while(y<outArray[x].length){  
+                if(outArray[x][y] != null){
+                    document.getElementById("genOutput").innerHTML += 
+                            outArray[x][y] + ", ";
+                }
+                y++;
+            }
+            console.log(outArray[x]);
+            document.getElementById("genOutput").innerHTML += "<br><br>";
+            y = 0;
+        }
+        document.getElementById("genOutput").innerHTML += 
+                "---------------------------------------------------------" + 
+                "----------------------------------------------------------<br>";
+    }
+    
+    //Reloads the entire page.
+    function reloadPage(){
+        window.location.reload(); 
+    }
+    
+
+
+</script>
+
+</body>
+</html>
