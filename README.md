@@ -1,6 +1,7 @@
 # RiskScript
 Generates random territories for each player before the game begins for the 
 Risk (Game of Thrones) board game.
+- Script for use can be found [here](https://timlee2.github.io/RiskGenerator/RiskScript.html).
 
 ## Description
 Based on the popular board game Risk, a spin-off 
